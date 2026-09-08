@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <world name="outdoor_path">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.9 0.9 0.85 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <direction>-0.3 0.2 -1</direction>
+    </light>
+
+    <model name="grass">
+      <static>true</static>
+      <link name="grass_link">
+        <collision name="col">
+          <geometry><box><size>40 40 0.05</size></box></geometry>
+        </collision>
+        <visual name="vis">
+          <geometry><box><size>40 40 0.05</size></box></geometry>
+          <material>
+            <ambient>0.15 0.45 0.12 1</ambient>
+            <diffuse>0.25 0.65 0.20 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road">
+      <static>true</static>
+      <pose>0 0 0.03 0 0 0</pose>
+      <link name="road_link">
+        <collision name="col">
+          <geometry><box><size>36 2.2 0.04</size></box></geometry>
+        </collision>
+        <visual name="vis">
+          <geometry><box><size>36 2.2 0.04</size></box></geometry>
+          <material>
+            <ambient>0.25 0.25 0.25 1</ambient>
+            <diffuse>0.35 0.35 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_centerline">
+      <static>true</static>
+      <pose>0 0 0.055 0 0 0</pose>
+      <link name="line">
+        <visual name="vis">
+          <geometry><box><size>36 0.08 0.01</size></box></geometry>
+          <material>
+            <ambient>0.85 0.85 0.2 1</ambient>
+            <diffuse>1 1 0.3 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <name>tree_0</name>
+      <uri>model://simple_tree</uri>
+      <pose>-12 3.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_1</name>
+      <uri>model://simple_tree</uri>
+      <pose>-8 -3.8 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_2</name>
+      <uri>model://simple_tree</uri>
+      <pose>-4 4.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_3</name>
+      <uri>model://simple_tree</uri>
+      <pose>0 -4.2 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_4</name>
+      <uri>model://simple_tree</uri>
+      <pose>4 3.6 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_5</name>
+      <uri>model://simple_tree</uri>
+      <pose>8 -3.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_6</name>
+      <uri>model://simple_tree</uri>
+      <pose>12 4.1 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_7</name>
+      <uri>model://simple_tree</uri>
+      <pose>14 -4.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_8</name>
+      <uri>model://simple_tree</uri>
+      <pose>-10 6.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_9</name>
+      <uri>model://simple_tree</uri>
+      <pose>6 6.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_10</name>
+      <uri>model://simple_tree</uri>
+      <pose>-6 -6.2 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>tree_11</name>
+      <uri>model://simple_tree</uri>
+      <pose>10 -6.0 0 0 0 0</pose>
+    </include>
+
+    <model name="point_A">
+      <static>true</static>
+      <pose>-14 0 0.08 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><cylinder><radius>0.35</radius><length>0.05</length></cylinder></geometry>
+          <material>
+            <ambient>0.8 0.7 0.1 1</ambient>
+            <diffuse>1 0.9 0.1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="point_B">
+      <static>true</static>
+      <pose>14 0 0.08 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <geometry><cylinder><radius>0.35</radius><length>0.05</length></cylinder></geometry>
+          <material>
+            <ambient>0.1 0.6 0.7 1</ambient>
+            <diffuse>0.1 0.85 0.9 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
