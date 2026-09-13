@@ -1,3 +1,4 @@
+# build artifacts
 build/
 install/
 log/
@@ -6,11 +7,16 @@ __pycache__/
 *.swp
 *.swo
 *~
+
+# local envs / overlays (too large for GitHub)
 .venv/
 venv/
 .opt
-data/
-*.png
-*.jpg
-*.pt
-*.db
+
+# keep useful data/, but skip bulky duplicates
+data/unet_runs/
+data/maps/*.back
+data/maps/*.db.back
+data/preview_*.png
+
+# do NOT ignore all png/jpg/pt/db globally — sim textures + models need them
