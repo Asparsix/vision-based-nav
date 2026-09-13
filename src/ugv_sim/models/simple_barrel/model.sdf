@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <model name="simple_barrel">
+    <static>true</static>
+    <link name="link">
+      <pose>0 0 0.4 0 0 0</pose>
+      <collision name="col">
+        <geometry><cylinder><radius>0.28</radius><length>0.8</length></cylinder></geometry>
+      </collision>
+      <visual name="vis">
+        <cast_shadows>false</cast_shadows>
+        <geometry><cylinder><radius>0.28</radius><length>0.8</length></cylinder></geometry>
+        <material>
+          <ambient>0.55 0.15 0.1 1</ambient>
+          <diffuse>0.75 0.2 0.12 1</diffuse>
+        </material>
+      </visual>
+      <visual name="ring">
+        <cast_shadows>false</cast_shadows>
+        <pose>0 0 0.15 0 0 0</pose>
+        <geometry><cylinder><radius>0.29</radius><length>0.06</length></cylinder></geometry>
+        <material>
+          <ambient>0.7 0.7 0.15 1</ambient>
+          <diffuse>0.95 0.9 0.2 1</diffuse>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

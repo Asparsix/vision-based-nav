@@ -10,17 +10,15 @@
   gz_type_name: "gz.msgs.Model"
   direction: GZ_TO_ROS
 
-- ros_topic_name: "odom"
-  gz_topic_name: "odom"
+# Wheel encoder odometry (input to robot_localization EKF)
+- ros_topic_name: "wheel/odom"
+  gz_topic_name: "wheel/odom"
   ros_type_name: "nav_msgs/msg/Odometry"
   gz_type_name: "gz.msgs.Odometry"
   direction: GZ_TO_ROS
 
-- ros_topic_name: "tf"
-  gz_topic_name: "tf"
-  ros_type_name: "tf2_msgs/msg/TFMessage"
-  gz_type_name: "gz.msgs.Pose_V"
-  direction: GZ_TO_ROS
+# NOTE: DiffDrive TF is on gz topic wheel/tf and is NOT bridged.
+# robot_localization publishes ROS odom → base_footprint.
 
 - ros_topic_name: "cmd_vel"
   gz_topic_name: "cmd_vel"
@@ -28,8 +26,32 @@
   gz_type_name: "gz.msgs.Twist"
   direction: ROS_TO_GZ
 
+- ros_topic_name: "imu"
+  gz_topic_name: "imu"
+  ros_type_name: "sensor_msgs/msg/Imu"
+  gz_type_name: "gz.msgs.IMU"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "stereo/left/camera_info"
+  gz_topic_name: "stereo/left/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
 - ros_topic_name: "camera/camera_info"
   gz_topic_name: "camera/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "stereo/right/camera_info"
+  gz_topic_name: "stereo/right/camera_info"
+  ros_type_name: "sensor_msgs/msg/CameraInfo"
+  gz_type_name: "gz.msgs.CameraInfo"
+  direction: GZ_TO_ROS
+
+- ros_topic_name: "camera/depth/camera_info"
+  gz_topic_name: "camera/depth/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"
   gz_type_name: "gz.msgs.CameraInfo"
   direction: GZ_TO_ROS

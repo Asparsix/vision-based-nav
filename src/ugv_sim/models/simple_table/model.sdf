@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <model name="simple_table">
+    <static>true</static>
+    <link name="link">
+      <pose>0 0 0.4 0 0 0</pose>
+      <collision name="top_col">
+        <geometry><box><size>1.0 0.7 0.06</size></box></geometry>
+      </collision>
+      <visual name="top">
+        <cast_shadows>false</cast_shadows>
+        <geometry><box><size>1.0 0.7 0.06</size></box></geometry>
+        <material>
+          <ambient>0.55 0.4 0.25 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <pbr><metal><albedo_map>model://textures/wood.png</albedo_map></metal></pbr>
+        </material>
+      </visual>
+      <visual name="leg1">
+        <cast_shadows>false</cast_shadows>
+        <pose>-0.4 -0.28 -0.37 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.7</size></box></geometry>
+        <material><ambient>0.3 0.2 0.1 1</ambient><diffuse>0.45 0.3 0.15 1</diffuse></material>
+      </visual>
+      <visual name="leg2">
+        <cast_shadows>false</cast_shadows>
+        <pose>0.4 -0.28 -0.37 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.7</size></box></geometry>
+        <material><ambient>0.3 0.2 0.1 1</ambient><diffuse>0.45 0.3 0.15 1</diffuse></material>
+      </visual>
+      <visual name="leg3">
+        <cast_shadows>false</cast_shadows>
+        <pose>-0.4 0.28 -0.37 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.7</size></box></geometry>
+        <material><ambient>0.3 0.2 0.1 1</ambient><diffuse>0.45 0.3 0.15 1</diffuse></material>
+      </visual>
+      <visual name="leg4">
+        <cast_shadows>false</cast_shadows>
+        <pose>0.4 0.28 -0.37 0 0 0</pose>
+        <geometry><box><size>0.08 0.08 0.7</size></box></geometry>
+        <material><ambient>0.3 0.2 0.1 1</ambient><diffuse>0.45 0.3 0.15 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+</sdf>

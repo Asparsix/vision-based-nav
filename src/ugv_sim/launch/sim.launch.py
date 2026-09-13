@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Launch outdoor Gazebo world + differential-drive UGV + camera bridge."""
+"""Launch outdoor Gazebo world + stereo UGV + IMU + depth bridge."""
 
 import os
 
@@ -60,7 +60,7 @@ def generate_launch_description():
             '-file', sdf,
             '-x', x,
             '-y', y,
-            '-z', '0.15',
+            '-z', '0.09',
             '-Y', yaw,
         ],
         output='screen',
@@ -76,12 +76,17 @@ def generate_launch_description():
     image_bridge = Node(
         package='ros_gz_image',
         executable='image_bridge',
-        arguments=['/camera/image_raw'],
+        arguments=[
+            '/stereo/left/image_raw',
+            '/stereo/right/image_raw',
+            '/camera/image_raw',
+            '/camera/depth/image_raw',
+        ],
         output='screen',
     )
 
     return LaunchDescription([
-        DeclareLaunchArgument('x', default_value='-14.0'),
+        DeclareLaunchArgument('x', default_value='-7.0'),
         DeclareLaunchArgument('y', default_value='0.0'),
         DeclareLaunchArgument('yaw', default_value='0.0'),
         set_resources,

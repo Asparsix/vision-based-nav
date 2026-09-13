@@ -8,6 +8,7 @@
         <geometry><cylinder><radius>0.12</radius><length>1.2</length></cylinder></geometry>
       </collision>
       <visual name="trunk_vis">
+        <cast_shadows>false</cast_shadows>
         <geometry><cylinder><radius>0.12</radius><length>1.2</length></cylinder></geometry>
         <material>
           <ambient>0.35 0.22 0.10 1</ambient>
@@ -21,6 +22,7 @@
         <geometry><sphere><radius>0.7</radius></sphere></geometry>
       </collision>
       <visual name="canopy_vis">
+        <cast_shadows>false</cast_shadows>
         <geometry><sphere><radius>0.7</radius></sphere></geometry>
         <material>
           <ambient>0.05 0.35 0.08 1</ambient>

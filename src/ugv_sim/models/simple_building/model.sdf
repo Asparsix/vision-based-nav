@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <model name="simple_building">
+    <static>true</static>
+    <link name="body">
+      <pose>0 0 2.5 0 0 0</pose>
+      <collision name="body_col">
+        <geometry><box><size>4.0 4.0 5.0</size></box></geometry>
+      </collision>
+      <visual name="body_vis">
+        <cast_shadows>false</cast_shadows>
+        <geometry><box><size>4.0 4.0 5.0</size></box></geometry>
+        <material>
+          <ambient>0.55 0.58 0.62 1</ambient>
+          <diffuse>0.65 0.68 0.72 1</diffuse>
+        </material>
+      </visual>
+      <visual name="win_front">
+        <cast_shadows>false</cast_shadows>
+        <pose>0 -2.01 0.5 0 0 0</pose>
+        <geometry><box><size>3.2 0.05 3.5</size></box></geometry>
+        <material>
+          <ambient>0.35 0.50 0.70 1</ambient>
+          <diffuse>0.40 0.58 0.80 1</diffuse>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

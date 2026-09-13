@@ -3,3 +3,14 @@ install/
 log/
 __pycache__/
 *.pyc
+*.swp
+*.swo
+*~
+.venv/
+venv/
+.opt
+data/
+*.png
+*.jpg
+*.pt
+*.db

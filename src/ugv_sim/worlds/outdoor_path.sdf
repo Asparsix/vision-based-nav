@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
+<!--
+  Compact enclosed courtyard for RTAB (better visual features):
+  - Perimeter brick walls (closed space)
+  - Short cross roads + plaza
+  - Houses, furniture, barrels, checker landmarks, trees
+  - Textures on roads/walls/furniture; shadows OFF
+-->
 <sdf version="1.8">
   <world name="outdoor_path">
     <physics name="1ms" type="ignored">
@@ -12,147 +19,172 @@
       <render_engine>ogre2</render_engine>
     </plugin>
 
+    <scene>
+      <ambient>0.72 0.72 0.75 1</ambient>
+      <background>0.65 0.75 0.88 1</background>
+      <shadows>false</shadows>
+    </scene>
+
     <light type="directional" name="sun">
-      <cast_shadows>true</cast_shadows>
-      <pose>0 0 10 0 0 0</pose>
-      <diffuse>0.9 0.9 0.85 1</diffuse>
-      <specular>0.3 0.3 0.3 1</specular>
-      <direction>-0.3 0.2 -1</direction>
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 12 0 0 0</pose>
+      <diffuse>0.9 0.9 0.92 1</diffuse>
+      <specular>0.05 0.05 0.05 1</specular>
+      <direction>0.15 0.1 -1</direction>
     </light>
 
+    <!-- Compact grass field (~26x26) -->
     <model name="grass">
       <static>true</static>
       <link name="grass_link">
         <collision name="col">
-          <geometry><box><size>40 40 0.05</size></box></geometry>
+          <geometry><box><size>26 26 0.05</size></box></geometry>
         </collision>
         <visual name="vis">
-          <geometry><box><size>40 40 0.05</size></box></geometry>
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>26 26 0.05</size></box></geometry>
           <material>
-            <ambient>0.15 0.45 0.12 1</ambient>
-            <diffuse>0.25 0.65 0.20 1</diffuse>
+            <ambient>0.2 0.45 0.18 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr><metal><albedo_map>model://textures/grass.png</albedo_map></metal></pbr>
           </material>
         </visual>
       </link>
     </model>
 
-    <model name="road">
+    <!-- Roads: short E-W + N-S (closed plaza) -->
+    <model name="road_ew">
       <static>true</static>
       <pose>0 0 0.03 0 0 0</pose>
       <link name="road_link">
-        <collision name="col">
-          <geometry><box><size>36 2.2 0.04</size></box></geometry>
-        </collision>
+        <collision name="col"><geometry><box><size>18 2.6 0.04</size></box></geometry></collision>
         <visual name="vis">
-          <geometry><box><size>36 2.2 0.04</size></box></geometry>
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>18 2.6 0.04</size></box></geometry>
           <material>
-            <ambient>0.25 0.25 0.25 1</ambient>
-            <diffuse>0.35 0.35 0.35 1</diffuse>
+            <ambient>0.35 0.35 0.35 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr><metal><albedo_map>model://textures/asphalt.png</albedo_map></metal></pbr>
           </material>
         </visual>
       </link>
     </model>
-
-    <model name="road_centerline">
+    <model name="road_ns">
       <static>true</static>
-      <pose>0 0 0.055 0 0 0</pose>
-      <link name="line">
+      <pose>0 0 0.031 0 0 0</pose>
+      <link name="road_link">
+        <collision name="col"><geometry><box><size>2.6 16 0.04</size></box></geometry></collision>
         <visual name="vis">
-          <geometry><box><size>36 0.08 0.01</size></box></geometry>
+          <cast_shadows>false</cast_shadows>
+          <geometry><box><size>2.6 16 0.04</size></box></geometry>
           <material>
-            <ambient>0.85 0.85 0.2 1</ambient>
-            <diffuse>1 1 0.3 1</diffuse>
+            <ambient>0.35 0.35 0.35 1</ambient>
+            <diffuse>1 1 1 1</diffuse>
+            <pbr><metal><albedo_map>model://textures/asphalt.png</albedo_map></metal></pbr>
           </material>
         </visual>
       </link>
     </model>
-    <include>
-      <name>tree_0</name>
-      <uri>model://simple_tree</uri>
-      <pose>-12 3.5 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_1</name>
-      <uri>model://simple_tree</uri>
-      <pose>-8 -3.8 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_2</name>
-      <uri>model://simple_tree</uri>
-      <pose>-4 4.0 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_3</name>
-      <uri>model://simple_tree</uri>
-      <pose>0 -4.2 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_4</name>
-      <uri>model://simple_tree</uri>
-      <pose>4 3.6 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_5</name>
-      <uri>model://simple_tree</uri>
-      <pose>8 -3.5 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_6</name>
-      <uri>model://simple_tree</uri>
-      <pose>12 4.1 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_7</name>
-      <uri>model://simple_tree</uri>
-      <pose>14 -4.0 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_8</name>
-      <uri>model://simple_tree</uri>
-      <pose>-10 6.0 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_9</name>
-      <uri>model://simple_tree</uri>
-      <pose>6 6.5 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_10</name>
-      <uri>model://simple_tree</uri>
-      <pose>-6 -6.2 0 0 0 0</pose>
-    </include>
-    <include>
-      <name>tree_11</name>
-      <uri>model://simple_tree</uri>
-      <pose>10 -6.0 0 0 0 0</pose>
-    </include>
 
+    <!-- Perimeter walls (closed courtyard) — wall length 4m each -->
+    <!-- North wall y=+11 -->
+    <include><name>wall_n0</name><uri>model://simple_wall</uri><pose>-8 11 1.2 0 0 0</pose></include>
+    <include><name>wall_n1</name><uri>model://simple_wall</uri><pose>-4 11 1.2 0 0 0</pose></include>
+    <include><name>wall_n2</name><uri>model://simple_wall</uri><pose>0 11 1.2 0 0 0</pose></include>
+    <include><name>wall_n3</name><uri>model://simple_wall</uri><pose>4 11 1.2 0 0 0</pose></include>
+    <include><name>wall_n4</name><uri>model://simple_wall</uri><pose>8 11 1.2 0 0 0</pose></include>
+    <!-- South wall y=-11 -->
+    <include><name>wall_s0</name><uri>model://simple_wall</uri><pose>-8 -11 1.2 0 0 0</pose></include>
+    <include><name>wall_s1</name><uri>model://simple_wall</uri><pose>-4 -11 1.2 0 0 0</pose></include>
+    <include><name>wall_s2</name><uri>model://simple_wall</uri><pose>0 -11 1.2 0 0 0</pose></include>
+    <include><name>wall_s3</name><uri>model://simple_wall</uri><pose>4 -11 1.2 0 0 0</pose></include>
+    <include><name>wall_s4</name><uri>model://simple_wall</uri><pose>8 -11 1.2 0 0 0</pose></include>
+    <!-- West wall x=-11 (rotated) -->
+    <include><name>wall_w0</name><uri>model://simple_wall</uri><pose>-11 -8 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_w1</name><uri>model://simple_wall</uri><pose>-11 -4 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_w2</name><uri>model://simple_wall</uri><pose>-11 0 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_w3</name><uri>model://simple_wall</uri><pose>-11 4 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_w4</name><uri>model://simple_wall</uri><pose>-11 8 1.2 0 0 1.5708</pose></include>
+    <!-- East wall x=+11 -->
+    <include><name>wall_e0</name><uri>model://simple_wall</uri><pose>11 -8 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_e1</name><uri>model://simple_wall</uri><pose>11 -4 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_e2</name><uri>model://simple_wall</uri><pose>11 0 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_e3</name><uri>model://simple_wall</uri><pose>11 4 1.2 0 0 1.5708</pose></include>
+    <include><name>wall_e4</name><uri>model://simple_wall</uri><pose>11 8 1.2 0 0 1.5708</pose></include>
+
+    <!-- Houses packed near walls -->
+    <include><name>house_1</name><uri>model://simple_house</uri><pose>-7 6.5 0 0 0 1.5708</pose></include>
+    <include><name>house_2</name><uri>model://simple_house</uri><pose>-7 -6.5 0 0 0 -1.5708</pose></include>
+    <include><name>house_3</name><uri>model://simple_house</uri><pose>7 6.5 0 0 0 1.5708</pose></include>
+    <include><name>house_4</name><uri>model://simple_house</uri><pose>7 -6.5 0 0 0 -1.5708</pose></include>
+    <include><name>house_5</name><uri>model://simple_house</uri><pose>-4 8.5 0 0 0 3.1416</pose></include>
+    <include><name>house_6</name><uri>model://simple_house</uri><pose>4 8.5 0 0 0 3.1416</pose></include>
+
+    <include><name>building_1</name><uri>model://simple_building</uri><pose>6 -8.5 0 0 0 0</pose></include>
+    <include><name>building_2</name><uri>model://simple_building</uri><pose>-6 -8.5 0 0 0 0.2</pose></include>
+
+    <!-- Furniture / clutter (visual landmarks) -->
+    <include><name>table_1</name><uri>model://simple_table</uri><pose>-4.2 3.2 0 0 0 0.3</pose></include>
+    <include><name>chair_1</name><uri>model://simple_chair</uri><pose>-4.2 2.3 0 0 0 0</pose></include>
+    <include><name>chair_2</name><uri>model://simple_chair</uri><pose>-3.3 3.2 0 0 0 1.2</pose></include>
+    <include><name>table_2</name><uri>model://simple_table</uri><pose>4.0 3.0 0 0 0 -0.4</pose></include>
+    <include><name>chair_3</name><uri>model://simple_chair</uri><pose>4.0 2.1 0 0 0 3.14</pose></include>
+    <include><name>bench_1</name><uri>model://simple_bench</uri><pose>-3.5 -3.5 0 0 0 0.6</pose></include>
+    <include><name>bench_2</name><uri>model://simple_bench</uri><pose>3.5 -3.8 0 0 0 -0.5</pose></include>
+    <include><name>barrel_1</name><uri>model://simple_barrel</uri><pose>-2.2 2.0 0 0 0 0</pose></include>
+    <include><name>barrel_2</name><uri>model://simple_barrel</uri><pose>2.4 -2.2 0 0 0 0.5</pose></include>
+    <include><name>barrel_3</name><uri>model://simple_barrel</uri><pose>-5.5 1.5 0 0 0 0</pose></include>
+    <include><name>barrel_4</name><uri>model://simple_barrel</uri><pose>5.2 1.8 0 0 0 0</pose></include>
+
+    <!-- Checker panels = strong visual landmarks for RTAB -->
+    <include><name>check_1</name><uri>model://checker_panel</uri><pose>-9.5 3 0 0 0 1.5708</pose></include>
+    <include><name>check_2</name><uri>model://checker_panel</uri><pose>9.5 -3 0 0 0 -1.5708</pose></include>
+    <include><name>check_3</name><uri>model://checker_panel</uri><pose>3 9.5 0 0 0 0</pose></include>
+    <include><name>check_4</name><uri>model://checker_panel</uri><pose>-3 -9.5 0 0 0 3.1416</pose></include>
+
+    <!-- Trees -->
+    <include><name>tree_0</name><uri>model://simple_tree</uri><pose>-5 4.2 0 0 0 0</pose></include>
+    <include><name>tree_1</name><uri>model://simple_tree</uri><pose>5 4.2 0 0 0 0</pose></include>
+    <include><name>tree_2</name><uri>model://simple_tree</uri><pose>-5 -4.2 0 0 0 0</pose></include>
+    <include><name>tree_3</name><uri>model://simple_tree</uri><pose>5 -4.2 0 0 0 0</pose></include>
+    <include><name>tree_4</name><uri>model://simple_tree</uri><pose>-8.5 0 0 0 0 0</pose></include>
+    <include><name>tree_5</name><uri>model://simple_tree</uri><pose>8.5 0 0 0 0 0</pose></include>
+    <include><name>tree_6</name><uri>model://simple_tree</uri><pose>0 7.5 0 0 0 0</pose></include>
+    <include><name>tree_7</name><uri>model://simple_tree</uri><pose>0 -7.5 0 0 0 0</pose></include>
+
+    <!-- Goals -->
     <model name="point_A">
       <static>true</static>
-      <pose>-14 0 0.08 0 0 0</pose>
+      <pose>-7 0 0.08 0 0 0</pose>
       <link name="link">
         <visual name="vis">
+          <cast_shadows>false</cast_shadows>
           <geometry><cylinder><radius>0.35</radius><length>0.05</length></cylinder></geometry>
-          <material>
-            <ambient>0.8 0.7 0.1 1</ambient>
-            <diffuse>1 0.9 0.1 1</diffuse>
-          </material>
+          <material><ambient>0.9 0.8 0.1 1</ambient><diffuse>1 0.95 0.15 1</diffuse></material>
         </visual>
       </link>
     </model>
     <model name="point_B">
       <static>true</static>
-      <pose>14 0 0.08 0 0 0</pose>
+      <pose>7 0 0.08 0 0 0</pose>
       <link name="link">
         <visual name="vis">
+          <cast_shadows>false</cast_shadows>
           <geometry><cylinder><radius>0.35</radius><length>0.05</length></cylinder></geometry>
-          <material>
-            <ambient>0.1 0.6 0.7 1</ambient>
-            <diffuse>0.1 0.85 0.9 1</diffuse>
-          </material>
+          <material><ambient>0.1 0.6 0.8 1</ambient><diffuse>0.15 0.85 1 1</diffuse></material>
         </visual>
       </link>
     </model>
-
+    <model name="point_C">
+      <static>true</static>
+      <pose>0 6 0.08 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+          <cast_shadows>false</cast_shadows>
+          <geometry><cylinder><radius>0.35</radius><length>0.05</length></cylinder></geometry>
+          <material><ambient>0.7 0.2 0.7 1</ambient><diffuse>0.9 0.3 0.9 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
   </world>
 </sdf>

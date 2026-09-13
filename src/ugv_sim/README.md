@@ -1,25 +1,19 @@
 # ugv_sim
 
-Differential-drive UGV + outdoor Gazebo world (road, grass, trees).
+Compact **enclosed courtyard** world for RTAB (+ stereo UGV).
 
-## Labels
-| Model | Meaning | Look |
-|-------|---------|------|
-| `grass` | Grass field | Green |
-| `road` | Driveable path | Dark gray |
-| `tree_*` | Trees / obstacles | Brown + green |
-| `point_A` / `point_B` | Start / goal | Yellow / cyan |
+## World features
+- ~26×26 m grass field inside **brick perimeter walls** (closed space)
+- Short E–W + N–S roads (textured asphalt)
+- Houses, buildings, trees
+- Tables, chairs, benches, barrels
+- Checkerboard landmark panels (strong visual features)
+- **Shadows off**
 
-## Build & run
+## Run
 ```bash
-cd ~/ugv_vision_nav_ws
-source /opt/ros/jazzy/setup.bash
-colcon build --symlink-install --packages-select ugv_sim
-source install/setup.bash
+source ~/ugv_vision_nav_ws/scripts/setup_env.sh
 ros2 launch ugv_sim sim.launch.py
 ```
 
-Teleop:
-```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
-```
+Default spawn near `point_A` (`x:=-7`).

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<sdf version="1.8">
+  <model name="checker_panel">
+    <static>true</static>
+    <link name="link">
+      <pose>0 0 0.75 0 0 0</pose>
+      <collision name="col">
+        <geometry><box><size>1.2 0.08 1.5</size></box></geometry>
+      </collision>
+      <visual name="vis">
+        <cast_shadows>false</cast_shadows>
+        <geometry><box><size>1.2 0.08 1.5</size></box></geometry>
+        <material>
+          <ambient>0.8 0.8 0.8 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <pbr><metal><albedo_map>model://textures/checker.png</albedo_map></metal></pbr>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
