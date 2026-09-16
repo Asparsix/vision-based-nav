@@ -2,11 +2,12 @@
 
 | Path | Purpose |
 |------|---------|
-| `models/unet_outdoor_best.pt` | Trained outdoor segmentation weights |
-| `models/unet_outdoor_meta.json` | Class / training metadata |
-| `maps/rtabmap.db` | Active RTAB-Map database (mapping/localization) |
-| `maps/rtabmap_latest_saved.db` | Saved courtyard map snapshot |
-| `dataset_autolabel/` | Auto-labelled train set (images + masks) |
-| `images_*` | Raw capture sessions used for labelling |
+| `images_courtyard_20260916_213150/` | Raw RGB captures from the **updated enclosed courtyard** world (350 frames) |
+| `dataset_autolabel/` | Auto-labelled train set for that capture (`images/` + `masks/` + `previews/`) |
+| `models/unet_outdoor_best.pt` | UNet weights fine-tuned on the courtyard dataset |
+| `models/unet_outdoor_meta.json` | Training metadata (classes, mIoU, etc.) |
+| `maps/` | RTAB-Map databases |
 
-Not uploaded: `unet_runs/` checkpoints (duplicates of best weights) and `*.back` map backups.
+**Removed:** older town/open-world image folders and their previous labels (no longer match the current Gazebo world).
+
+Not uploaded: `unet_runs/` checkpoints, `*.back` map backups, debug overlays.

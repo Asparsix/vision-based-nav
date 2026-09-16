@@ -40,24 +40,28 @@ PREVIEW = {
 
 
 def classify_hsv(hsv: np.ndarray) -> np.ndarray:
-    """Return HxW uint8 mask with class IDs."""
+    """Return HxW uint8 mask with class IDs.
+
+    Tuned for the textured enclosed courtyard (asphalt/grass PNGs, flat tree materials).
+    Flat bright-gray asphalt rules from the old town world do NOT work here.
+    """
     h, s, v = hsv[:, :, 0], hsv[:, :, 1], hsv[:, :, 2]
     mask = np.zeros(h.shape, dtype=np.uint8)
 
-    # Asphalt: near-neutral gray (buildings have a blue cast → higher S / hue ~120)
-    asphalt = (s < 18) & (v > 110) & (v < 185)
-    # Yellow center line → treat as road (traversable)
-    yellow = (h >= 22) & (h <= 38) & (s > 55) & (v > 180)
-    # Bright grass verge
-    grass = (h >= 48) & (h <= 75) & (s > 55) & (v > 145)
-    # Darker canopy greens
-    canopy = (h >= 48) & (h <= 85) & (s > 70) & (v <= 145)
-    # Trunks only (darker brown); house walls are lighter tan (V ~130+) → bg
-    trunk = (h >= 8) & (h <= 22) & (s > 45) & (v > 35) & (v < 115)
+    sky = v >= 195
+    # Lawn: brighter saturated green (grass texture)
+    grass = (h >= 40) & (h <= 80) & (s > 70) & (v > 70) & (v < 200)
+    # Tree canopy spheres: darker green than lawn
+    canopy = (h >= 35) & (h <= 95) & (s > 50) & (v >= 25) & (v <= 70)
+    # Trunks (brown); brick walls may share hue — acceptable as non-traversable
+    trunk = (h >= 5) & (h <= 28) & (s > 45) & (v > 25) & (v < 110)
+    # Textured asphalt: dark + muted (exclude strong greens already labeled)
+    road = (v >= 24) & (v <= 80) & (s <= 120) & ~grass & ~canopy
 
-    mask[asphalt | yellow] = CLASS_ROAD
+    mask[road] = CLASS_ROAD
     mask[grass] = CLASS_GRASS
     mask[canopy | trunk] = CLASS_TREE
+    mask[sky] = CLASS_BG
     return mask
 
 

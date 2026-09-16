@@ -174,6 +174,12 @@ def main() -> None:
     parser.add_argument('--height', type=int, default=240)
     parser.add_argument('--num_workers', type=int, default=2)
     parser.add_argument('--base', type=int, default=32, help='UNet channel width')
+    parser.add_argument(
+        '--resume',
+        type=Path,
+        default=None,
+        help='Optional checkpoint to fine-tune from (e.g. data/models/unet_outdoor_best.pt)',
+    )
     args = parser.parse_args()
 
     data_dir = args.data_dir.expanduser().resolve()
@@ -213,6 +219,15 @@ def main() -> None:
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = UNet(num_classes=NUM_CLASSES, base=args.base).to(device)
+    if args.resume is not None:
+        resume_path = args.resume.expanduser().resolve()
+        ckpt = torch.load(resume_path, map_location=device, weights_only=False)
+        if int(ckpt.get('base', args.base)) != args.base:
+            raise SystemExit(
+                f'Resume base={ckpt.get("base")} != --base {args.base}'
+            )
+        model.load_state_dict(ckpt['model'])
+        print(f'Loaded resume weights from {resume_path} (prev mIoU={ckpt.get("val_miou")})')
 
     # Class weights from train set (approx via subsample) to balance rare tree class
     class_counts = np.zeros(NUM_CLASSES, dtype=np.float64)
@@ -281,7 +296,8 @@ def main() -> None:
             f'epoch {epoch:02d}/{args.epochs}  '
             f'train_loss={train_loss:.4f}  val_loss={metrics["loss"]:.4f}  '
             f'acc={metrics["acc"]:.3f}  mIoU={metrics["miou"]:.3f}  [{iou_str}]  '
-            f'{history[-1]["sec"]:.1f}s'
+            f'{history[-1]["sec"]:.1f}s',
+            flush=True,
         )
 
         ckpt = {

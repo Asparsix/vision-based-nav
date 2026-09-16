@@ -1,23 +1,14 @@
 {
-  "data_dir": "/home/robot/ugv_vision_nav_ws/data/dataset_autolabel",
-  "num_train": 102,
-  "num_val": 18,
-  "size": [
-    320,
-    240
-  ],
+  "source": "courtyard_ft_20260916",
+  "images": "data/images_courtyard_20260916_213150",
+  "n_images": 350,
+  "status": "epoch4_best",
+  "val_miou": 0.9007623344659805,
+  "epoch": 4,
   "classes": [
     "background",
     "road",
     "grass",
     "tree"
-  ],
-  "class_weights": [
-    0.6965871453285217,
-    0.4631832242012024,
-    4.34319543838501,
-    5.707395553588867
-  ],
-  "device": "cpu",
-  "base": 32
+  ]
 }

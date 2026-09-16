@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Drive the UGV along a scripted path while publishing /cmd_vel (sim time)."""
+"""Drive the UGV around the enclosed courtyard while collecting camera views."""
 
 from __future__ import annotations
 
-import math
 import time
 
 import rclpy
@@ -11,27 +10,39 @@ from geometry_msgs.msg import Twist
 from rclpy.node import Node
 
 
-# (linear_m_s, angular_rad_s, duration_s) — wall clock; fine for Gazebo real_time_factor~1
+# Spawn default: x=-7, y=0, yaw=0 (facing +X / east on EW road)
+# Courtyard roads ~18m EW x 16m NS inside brick walls.
 SEGMENTS = [
-    # start near A facing east — go toward intersection
-    (0.55, 0.0, 8.0),
-    (0.35, 0.45, 2.0),   # slight weave
-    (0.55, 0.0, 6.0),
-    (0.2, 0.9, 1.8),     # turn left toward north road
-    (0.5, 0.0, 7.0),
-    (0.2, -1.0, 1.8),    # turn back south through intersection
-    (0.55, 0.0, 10.0),
-    (0.2, 0.95, 1.9),    # turn east toward B
-    (0.55, 0.0, 10.0),
-    (0.25, 0.7, 2.2),    # look at houses
-    (0.45, -0.35, 4.0),
-    (0.5, 0.0, 6.0),
-    (0.15, 1.1, 2.5),    # spin scan
-    (0.45, 0.0, 5.0),
-    (0.2, -0.9, 2.0),
-    (0.5, 0.0, 8.0),
-    (0.0, 0.8, 3.0),     # in-place look around
-    (0.4, 0.2, 5.0),
+    # East along main road through plaza
+    (0.45, 0.0, 10.0),
+    (0.0, 0.9, 1.8),      # turn north
+    (0.45, 0.0, 8.0),     # NS road north
+    (0.0, 1.05, 3.0),     # look around near north houses
+    (0.35, 0.0, 3.0),
+    (0.0, -1.05, 3.2),    # face south
+    (0.45, 0.0, 14.0),    # long south pass
+    (0.0, 0.95, 1.8),     # turn east
+    (0.4, 0.0, 6.0),
+    (0.0, 0.95, 1.8),     # turn north again
+    (0.4, 0.0, 6.0),
+    (0.15, 0.7, 4.0),     # weave / scan trees
+    (0.35, -0.35, 5.0),
+    (0.0, 1.2, 4.0),      # in-place spin
+    (0.4, 0.0, 5.0),
+    (0.0, -0.95, 1.9),
+    (0.45, 0.0, 8.0),     # west-ish return on EW
+    (0.2, 0.55, 3.0),
+    (0.4, 0.0, 6.0),
+    (0.0, 1.1, 3.5),      # spin scan furniture / walls
+    (0.35, 0.25, 6.0),
+    (0.25, -0.5, 5.0),
+    (0.4, 0.0, 7.0),
+    (0.0, 0.85, 2.5),
+    (0.4, 0.0, 8.0),
+    (0.15, -0.9, 3.0),
+    (0.4, 0.0, 6.0),
+    (0.0, 1.0, 4.0),
+    (0.35, 0.0, 5.0),
     (0.0, 0.0, 1.0),
 ]
 
@@ -40,7 +51,7 @@ class ScriptedDriver(Node):
     def __init__(self) -> None:
         super().__init__('scripted_driver')
         self.pub = self.create_publisher(Twist, '/cmd_vel', 10)
-        self.get_logger().info(f'Driving {len(SEGMENTS)} segments…')
+        self.get_logger().info(f'Courtyard drive: {len(SEGMENTS)} segments…')
 
     def run(self) -> None:
         for i, (lin, ang, dur) in enumerate(SEGMENTS):
