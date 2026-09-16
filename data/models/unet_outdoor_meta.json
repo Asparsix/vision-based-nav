@@ -2,13 +2,19 @@
   "source": "courtyard_ft_20260916",
   "images": "data/images_courtyard_20260916_213150",
   "n_images": 350,
-  "status": "epoch4_best",
-  "val_miou": 0.9007623344659805,
-  "epoch": 4,
+  "status": "final",
+  "num_classes": 4,
+  "base": 32,
+  "size": [
+    320,
+    240
+  ],
   "classes": [
     "background",
     "road",
     "grass",
     "tree"
-  ]
+  ],
+  "val_miou": 0.9007623344659805,
+  "epoch": 4
 }
