@@ -1,0 +1,9 @@
+{
+  "db": "data/maps/rtabmap_latest_saved.db",
+  "nodes": 218,
+  "links": 419,
+  "db_mb": 90.3,
+  "cloud_points_voxel": 1523851,
+  "unet_val_miou": 0.901,
+  "unet_images": 350
+}
